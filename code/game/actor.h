@@ -12,7 +12,7 @@ class Actor : public Entity
 	typedef Entity inherited;
 public:
 	Camera* m_camera;
-	CustomWeapon* m_rail;
+	//CustomWeapon* m_rail;
 public:
 	Actor();
 	~Actor();

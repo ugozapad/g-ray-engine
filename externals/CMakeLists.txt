@@ -11,8 +11,9 @@ add_subdirectory(yaml-cpp)
 
 add_subdirectory(glad)
 
-add_subdirectory(lua)
-add_subdirectory(luabind)
+#add_subdirectory(lua)
+#add_subdirectory(luabind)
+add_subdirectory(luaplus)
 
 add_library(imgui STATIC
 	"imgui/imconfig.h"

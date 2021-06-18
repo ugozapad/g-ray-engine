@@ -1,16 +1,27 @@
 #ifndef LUASCRIPTMANAGER_H
 #define LUASCRIPTMANAGER_H
 
-extern "C"
-{
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-}
+#include "LuaPlusInternal.h"
 
-#include <luabind/luabind.hpp>
-#include <luabind/function.hpp>
-#include <luabind/class.hpp>
+#ifdef luaplus_assert
+#undef luaplus_assert
+#endif // luaplus_assert
+
+#define luaplus_assert ASSERT
+
+#include "LuaStackObject.h"
+#include "LuaObject.h"
+#include "LuaState.h"
+#include "LuaTableIterator.h"
+#include "LuaObject.inl"
+#include "LuaStateOutFile.h"
+#include "LuaStateOutString.h"
+#include "LuaHelper.h"
+#include "LuaAutoBlock.h"
+#include "LuaStackTableIterator.h"
+#include "LuaCall.h"
+#include "LuaFunction.h"
+#include "LuaPlusCD.h"
 
 class LuaScriptManager
 {
@@ -21,10 +32,10 @@ public:
 	void DoFile(const std::string& filename);
 	void DoFile(const std::string& pathname, const std::string& filename);
 
-	lua_State* GetState() { return m_luaState; }
+	LuaPlus::LuaState& GetState() { return *m_luaState; }
 
 private:
-	lua_State* m_luaState;
+	LuaPlus::LuaState* m_luaState;
 };
 
 extern LuaScriptManager g_luaScriptManager;

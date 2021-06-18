@@ -12,79 +12,79 @@ void ShaderSystem::Init()
 
 	g_luaScriptManager.DoFile("engine/r_shaders.lua");
 
-	//using namespace LuaPlus;
-	//LuaObject shaderTable = g_luaScriptManager.GetState().GetGlobals()["r_shaders"];
+	using namespace LuaPlus;
+	LuaObject shaderTable = g_luaScriptManager.GetState().GetGlobals()["r_shaders"];
 
-	//for (LuaTableIterator it(shaderTable); it; it.Next())
-	//{
-	//	ShaderCreationInfo info;
-	//	info.name = it.GetKey().GetString();
+	for (LuaTableIterator it(shaderTable); it; it.Next())
+	{
+		ShaderCreationInfo info;
+		info.name = it.GetKey().GetString();
 
-	//	for (LuaTableIterator it2(it.GetValue()); it2; it2.Next())
-	//	{
-	//		if (strcmp(it2.GetKey().GetString(), "vertex_path") == 0)
-	//			info.vspath = it2.GetValue().GetString();
-	//		else if (strcmp(it2.GetKey().GetString(), "fragment_path") == 0)
-	//			info.fspath = it2.GetValue().GetString();
+		for (LuaTableIterator it2(it.GetValue()); it2; it2.Next())
+		{
+			if (strcmp(it2.GetKey().GetString(), "vertex_path") == 0)
+				info.vspath = it2.GetValue().GetString();
+			else if (strcmp(it2.GetKey().GetString(), "fragment_path") == 0)
+				info.fspath = it2.GetValue().GetString();
 
-	//		if (strcmp(it2.GetKey().GetString(), "vertex_declaration") == 0)
-	//		{
-	//			if (!it2.GetValue()["position"].IsNil())
-	//			{
-	//				LuaObject declTable = it2.GetValue()["position"];
-	//				ASSERT(declTable.IsValid());
+			if (strcmp(it2.GetKey().GetString(), "vertex_declaration") == 0)
+			{
+				if (!it2.GetValue()["position"].IsNil())
+				{
+					LuaObject declTable = it2.GetValue()["position"];
+					ASSERT(declTable.IsValid());
 
-	//				VertexDeclaration decl;
-	//				decl.name = "position";
+					VertexDeclaration decl;
+					decl.name = "position";
 
-	//				if (strcmp(declTable[1].GetString(), "float"))
-	//					decl.type = VertexDeclaration::VD_FLOAT;
+					if (strcmp(declTable[1].GetString(), "float"))
+						decl.type = VertexDeclaration::VD_FLOAT;
 
-	//				decl.size = declTable[2].GetInteger();
-	//				info.vertexDecl.push_back(decl);
-	//			}
+					decl.size = declTable[2].GetInteger();
+					info.vertexDecl.push_back(decl);
+				}
 
-	//			if (!it2.GetValue()["normal"].IsNil())
-	//			{
-	//				LuaObject declTable = it2.GetValue()["normal"];
-	//				ASSERT(declTable.IsValid());
+				if (!it2.GetValue()["normal"].IsNil())
+				{
+					LuaObject declTable = it2.GetValue()["normal"];
+					ASSERT(declTable.IsValid());
 
-	//				VertexDeclaration decl;
-	//				decl.name = "normal";
+					VertexDeclaration decl;
+					decl.name = "normal";
 
-	//				if (strcmp(declTable[1].GetString(), "float"))
-	//					decl.type = VertexDeclaration::VD_FLOAT;
+					if (strcmp(declTable[1].GetString(), "float"))
+						decl.type = VertexDeclaration::VD_FLOAT;
 
-	//				decl.size = declTable[2].GetInteger();
-	//				info.vertexDecl.push_back(decl);
-	//			}
+					decl.size = declTable[2].GetInteger();
+					info.vertexDecl.push_back(decl);
+				}
 
-	//			if (!it2.GetValue()["texcoord0"].IsNil())
-	//			{
-	//				LuaObject declTable = it2.GetValue()["texcoord0"];
-	//				ASSERT(declTable.IsValid());
+				if (!it2.GetValue()["texcoord0"].IsNil())
+				{
+					LuaObject declTable = it2.GetValue()["texcoord0"];
+					ASSERT(declTable.IsValid());
 
-	//				VertexDeclaration decl;
-	//				decl.name = "texcoord0";
+					VertexDeclaration decl;
+					decl.name = "texcoord0";
 
-	//				if (strcmp(declTable[1].GetString(), "float"))
-	//					decl.type = VertexDeclaration::VD_FLOAT;
+					if (strcmp(declTable[1].GetString(), "float"))
+						decl.type = VertexDeclaration::VD_FLOAT;
 
-	//				decl.size = declTable[2].GetInteger();
-	//				info.vertexDecl.push_back(decl);
-	//			}
-	//		}
-	//	}
+					decl.size = declTable[2].GetInteger();
+					info.vertexDecl.push_back(decl);
+				}
+			}
+		}
 
-	//	m_shadersCreationInfo.push_back(info);
-	//}
+		m_shadersCreationInfo.push_back(info);
+	}
 
-	//// Re-assign table
-	//LuaObject reassignTable = g_luaScriptManager.GetState().GetGlobals()["r_reassign_table"];
+	// Re-assign table
+	LuaObject reassignTable = g_luaScriptManager.GetState().GetGlobals()["r_reassign_table"];
 
-	//for (LuaTableIterator it(reassignTable); it; it.Next())
-	//	m_reassignTable.push_back(std::make_pair(it.GetKey().GetString(), 
-	//											 it.GetValue().GetString()));
+	for (LuaTableIterator it(reassignTable); it; it.Next())
+		m_reassignTable.push_back(std::make_pair(it.GetKey().GetString(), 
+												 it.GetValue().GetString()));
 
 }
 

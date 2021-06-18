@@ -1,58 +1,49 @@
 #include "stdafx.h"
 #include "luascriptmanager.h"
 
+using namespace LuaPlus;
+
+namespace engine_lua_help
+{
+	static void include(const char* pathname, const char* filename)
+	{
+		g_luaScriptManager.DoFile(pathname, filename);
+	}
+}
+
 class EngineWrapper
 {
 public:
-	static void register_script(lua_State* L);
-public:
-	static void print(const char* msg);
+	int msg(LuaState* state)
+	{
+		LuaStack args(state);
+		Msg("%s", args[1].GetString());
+		return 0;
+	}
+
+
 };
 
-void EngineWrapper::print(const char* msg)
-{
-	Msg("%s", msg);
-}
-
-void EngineWrapper::register_script(lua_State* L)
-{
-	using namespace luabind;
-
-	module(L)
-	[
-		class_<EngineWrapper>("engine")
-			.def("print", &EngineWrapper::print)
-	];
-}
-
+static EngineWrapper s_engineWrapper;
 LuaScriptManager g_luaScriptManager;
-
-void include(const char* filename)
-{
-	g_luaScriptManager.DoFile(filename);
-}
-
-void RegisterSomeLuaShit(lua_State* L)
-{
-	using namespace luabind;
-
-	module(L)
-	[
-		def("include", include)
-	];
-}
 
 void LuaScriptManager::Init()
 {
-	m_luaState = lua_open();
-	luabind::open(m_luaState);
+	m_luaState = LuaState::Create();
 
-	RegisterSomeLuaShit(m_luaState);
-	EngineWrapper::register_script(m_luaState);
+	LuaObject globalObjects = m_luaState->GetGlobals();
+
+	// Register include function.
+	globalObjects.RegisterDirect("include", &engine_lua_help::include);
+
+	// Create engine wrapper table and register callbacks.
+	LuaObject engineWrapper = globalObjects.CreateTable("engine");
+	engineWrapper.Register("msg", s_engineWrapper, &EngineWrapper::msg);
 }
 
 void LuaScriptManager::Shutdown()
 {
+	LuaState::Destroy(m_luaState);
 }
 
 #include "filesystem/filesystem.h"
@@ -63,7 +54,7 @@ void LuaScriptManager::DoFile(const std::string& filename)
 	std::string filebuffer = ReadStreamToString(stream);
 	stream.release();
 
-	luaL_dostring(m_luaState, &filebuffer[0]);
+	m_luaState->DoString(&filebuffer[0]);
 }
 
 void LuaScriptManager::DoFile(const std::string& pathname, const std::string& filename)
@@ -72,6 +63,6 @@ void LuaScriptManager::DoFile(const std::string& pathname, const std::string& fi
 	std::string filebuffer = ReadStreamToString(stream);
 	stream.release();
 
-	luaL_dostring(m_luaState, &filebuffer[0]);
+	m_luaState->DoString(&filebuffer[0]);
 }
 

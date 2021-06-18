@@ -13,3 +13,6 @@
 [submodule "externals/stb"]
 	path = externals/stb
 	url = https://github.com/nothings/stb.git
+[submodule "externals/luaplus"]
+	path = externals/luaplus
+	url = https://github.com/ugozapad/luaplus
