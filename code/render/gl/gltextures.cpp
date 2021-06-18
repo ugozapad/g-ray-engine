@@ -53,6 +53,7 @@ glTexture2D::glTexture2D(const TextureCreationDesc& desc) :
 	glGenTextures(1, &m_handle);
 	glBindTexture(GL_TEXTURE_2D, m_handle);
 
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexImage2D(GL_TEXTURE_2D, 
 				 0, 
 				 GetGLFormat(m_desc.m_format), 
