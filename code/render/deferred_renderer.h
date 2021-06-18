@@ -5,20 +5,6 @@ class Shader;
 class IFramebuffer;
 class ITexture2D;
 class IVertexBuffer;
-
-class ScreenQuad
-{
-private:
-	static IVertexBuffer* ms_vertexBuffer;
-	static Shader* ms_screenQuadShader;
-
-public:
-	static void init();
-	static void shutdown();
-
-	static void render(ITexture2D* texture);
-};
-
 class Camera;
 class Entity;
 
