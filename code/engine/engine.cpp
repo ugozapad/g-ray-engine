@@ -109,6 +109,7 @@ void Engine::ShutdownGame()
 #include "resourcemanager.h"
 #include "render/device.h"
 #include "render/postprocess.h"
+#include "render/screenquad.h"
 
 #include <imgui.h>
 
@@ -124,7 +125,7 @@ void Engine::RenderFrame()
 	g_render->BeginFrame();
 
 	g_renderDevice->SetFramebuffer(g_deferredRenderer.getFramebuffer());
-	g_renderDevice->Clear(IRenderDevice::CLEAR_RT | IRenderDevice::CLEAR_DEPTH);
+	g_renderDevice->Clear(/*IRenderDevice::CLEAR_RT |*/ IRenderDevice::CLEAR_DEPTH);
 
 	// pass 0 - skybox
 	g_pILevel->Render_Skybox();
