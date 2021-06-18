@@ -76,7 +76,7 @@ void ProccessNode(std::vector<SubMesh*>& submeshes, aiNode* node, const aiScene*
 void ModelBase::Load(const std::string& filename)
 {
 	m_filename = filename;
-	Msg("loading %s", IFileSystem::GetFileSystem()->GetFileName(filename).c_str());
+	Msg("loading %s", IFileSystem::Instance()->GetFileName(filename).c_str());
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs);

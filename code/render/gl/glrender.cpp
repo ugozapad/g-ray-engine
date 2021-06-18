@@ -226,7 +226,7 @@ void glRender::MakeScreenShot()
 	sprintf(buffer, "ss_%s.jpg", timebuf);
 #endif // USE_IDTECH_LIKE_NAMING
 
-	std::unique_ptr<DataStream> stream = IFileSystem::GetFileSystem()->OpenWriteStream("screenshots", buffer);
+	std::unique_ptr<DataStream> stream = IFileSystem::Instance()->OpenWriteStream("screenshots", buffer);
 
 	stbi_flip_vertically_on_write(true);
 	stbi_write_jpg_to_func(stbi_write_callback, (void*)stream.get(), width, height, 3, screenBuffer, 100);

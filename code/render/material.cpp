@@ -13,7 +13,7 @@ class MaterialParser
 public:
 	MaterialParser(const std::string& filename)
 	{
-		std::unique_ptr<DataStream> stream = IFileSystem::GetFileSystem()->OpenReadStream(filename);
+		std::unique_ptr<DataStream> stream = IFileSystem::Instance()->OpenReadStream(filename);
 
 		stream->Seek(SeekDir::End, 0);
 		size_t length = stream->Tell();
@@ -63,7 +63,7 @@ Material::~Material()
 
 void Material::Load(const std::string& filename)
 {
-	std::unique_ptr<DataStream> stream = IFileSystem::GetFileSystem()->OpenReadStream(filename);
+	std::unique_ptr<DataStream> stream = IFileSystem::Instance()->OpenReadStream(filename);
 
 	stream->Seek(SeekDir::End, 0);
 	size_t length = stream->Tell();
@@ -153,7 +153,7 @@ void Material::Load(const std::string& filename)
 		else
 		{
 			Error("Material::Load: get unknowed token '%s' while reading '%s' file.",
-				token, IFileSystem::GetFileSystem()->GetFileName(filename).c_str());
+				token, IFileSystem::Instance()->GetFileName(filename).c_str());
 		}
 
 		token = strtok(NULL, tokenizerStr);
@@ -164,18 +164,18 @@ void Material::Load(const std::string& filename)
 	TextureCreationDesc desc;
 	desc.m_mipmapping = !disableMipMapping;
 
-	std::string texturePath = IFileSystem::GetFileSystem()->GetFilePath("textures", albedoTextureName);
+	std::string texturePath = IFileSystem::Instance()->GetFilePath("textures", albedoTextureName);
 	m_albedoTexture = g_resourceManager->LoadTexture2D(texturePath, desc);
 
 	if (normalTextureName)
 	{
-		texturePath = IFileSystem::GetFileSystem()->GetFilePath("textures", normalTextureName);
+		texturePath = IFileSystem::Instance()->GetFilePath("textures", normalTextureName);
 		m_normalTexture = g_resourceManager->LoadTexture2D(texturePath);
 	}
 
 	if (detailTextureName)
 	{
-		texturePath = IFileSystem::GetFileSystem()->GetFilePath("textures", detailTextureName);
+		texturePath = IFileSystem::Instance()->GetFilePath("textures", detailTextureName);
 		m_detailTexture = g_resourceManager->LoadTexture2D(texturePath);
 	}
 }

@@ -33,7 +33,7 @@ private:
 
 };
 
-IFileSystem* IFileSystem::GetFileSystem()
+IFileSystem* IFileSystem::Instance()
 {
 	static FileSystem s_fileSystem;
 	return (IFileSystem*)&s_fileSystem;

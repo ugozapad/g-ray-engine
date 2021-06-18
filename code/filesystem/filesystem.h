@@ -6,7 +6,7 @@
 class IFileSystem
 {
 public:
-	static IFileSystem* GetFileSystem();
+	static IFileSystem* Instance();
 
 public:
 	virtual void Initialize() = 0;
@@ -20,7 +20,6 @@ public:
 	virtual std::string GetFileName(const std::string& filename) = 0;
 	virtual std::string GetFilePath(const std::string& path, const std::string& filename) = 0;
 	virtual std::string GetPath(const std::string& path) = 0;
-
 
 	virtual DataStreamPtr OpenReadStream(const std::string& filename) = 0;
 	virtual DataStreamPtr OpenWriteStream(const std::string& filename) = 0;

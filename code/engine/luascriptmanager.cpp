@@ -50,7 +50,7 @@ void LuaScriptManager::Shutdown()
 
 void LuaScriptManager::DoFile(const std::string& filename)
 {
-	std::unique_ptr<DataStream> stream = IFileSystem::GetFileSystem()->OpenReadStream("scripts", filename);
+	std::unique_ptr<DataStream> stream = IFileSystem::Instance()->OpenReadStream("scripts", filename);
 	std::string filebuffer = ReadStreamToString(stream);
 	stream.release();
 
@@ -59,7 +59,7 @@ void LuaScriptManager::DoFile(const std::string& filename)
 
 void LuaScriptManager::DoFile(const std::string& pathname, const std::string& filename)
 {
-	std::unique_ptr<DataStream> stream = IFileSystem::GetFileSystem()->OpenReadStream(pathname, filename);
+	std::unique_ptr<DataStream> stream = IFileSystem::Instance()->OpenReadStream(pathname, filename);
 	std::string filebuffer = ReadStreamToString(stream);
 	stream.release();
 

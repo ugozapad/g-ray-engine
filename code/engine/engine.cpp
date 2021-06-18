@@ -43,7 +43,7 @@ void Engine::Initialize(Application* app)
 	}
 
 	// Initialize filesystem before log.
-	IFileSystem::GetFileSystem()->Initialize();
+	IFileSystem::Instance()->Initialize();
 
 	LogInit();
 

@@ -4,7 +4,7 @@
 
 GLuint CreateShader(GLenum shaderType, const std::string& filename)
 {
-	std::ifstream ifs(IFileSystem::GetFileSystem()->GetFilePath("shaders", filename));
+	std::ifstream ifs(IFileSystem::Instance()->GetFilePath("shaders", filename));
 
 	if (!ifs.is_open())
 		Error("CreateShader: failed to open file %s", filename.c_str());
@@ -26,7 +26,7 @@ GLuint CreateShader(GLenum shaderType, const std::string& filename)
 		Msg("Failed to compile shader %s\n%s", filename.c_str(), infoLog);
 	}
 
-	Msg("created shader from file %s", IFileSystem::GetFileSystem()->GetFileName(filename).c_str());
+	Msg("created shader from file %s", IFileSystem::Instance()->GetFileName(filename).c_str());
 	return shader;
 }
 

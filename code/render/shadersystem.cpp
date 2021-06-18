@@ -112,12 +112,12 @@ Shader* ShaderSystem::CreateShader(const char* name)
 
 Shader* ShaderSystem::CreateShaderFromFile(const char* name)
 {
-	std::string vsname = IFileSystem::GetFileSystem()->GetPath("shaders");
+	std::string vsname = IFileSystem::Instance()->GetPath("shaders");
 	vsname += "/";
 	vsname += name;
 	vsname += ".vs";
 
-	std::string fsname = IFileSystem::GetFileSystem()->GetPath("shaders");
+	std::string fsname = IFileSystem::Instance()->GetPath("shaders");
 	fsname += "/";
 	fsname += name;
 	fsname += ".fs";

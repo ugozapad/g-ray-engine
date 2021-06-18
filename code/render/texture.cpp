@@ -99,7 +99,7 @@ void Texture2D::CreateTexture(const std::string& filename, const TextureCreation
 
 	stbi_image_free(data);
 
-	Msg("loaded %s", IFileSystem::GetFileSystem()->GetFileName(filename).c_str());
+	Msg("loaded %s", IFileSystem::Instance()->GetFileName(filename).c_str());
 }
 
 void Texture2D::Release()
@@ -135,8 +135,8 @@ TextureCubemap::TextureCubemap(const std::string& filename)
 		char buffer[260];
 		sprintf(buffer, "%s_%s.png", filename.c_str(), tex_faces_str[i].c_str());
 
-		if (!IFileSystem::GetFileSystem()->Exist(buffer))
-			Error("TextureCubemap::TextureCubemap: Couldnt find face '%s' of cubemap.", IFileSystem::GetFileSystem()->GetFileName(buffer).c_str());
+		if (!IFileSystem::Instance()->Exist(buffer))
+			Error("TextureCubemap::TextureCubemap: Couldnt find face '%s' of cubemap.", IFileSystem::Instance()->GetFileName(buffer).c_str());
 
 		uint8_t* p_tex_data = stbi_load(buffer, &width, &height, &channels, 0);
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, p_tex_data);

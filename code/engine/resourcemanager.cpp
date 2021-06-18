@@ -11,7 +11,7 @@ std::shared_ptr<Material> g_defaultMaterial;
 
 std::shared_ptr<Texture2D> ResourceManager::LoadTexture2D(const std::string& name)
 {
-	if (!IFileSystem::GetFileSystem()->Exist(name.c_str()))
+	if (!IFileSystem::Instance()->Exist(name.c_str()))
 		Error("ResourceManager::LoadTexture: texture '%s' is not exist.", name.c_str());
 
 	for (TexInter it = m_Textures.begin(); it != m_Textures.end(); it++)
@@ -26,7 +26,7 @@ std::shared_ptr<Texture2D> ResourceManager::LoadTexture2D(const std::string& nam
 
 std::shared_ptr<Texture2D> ResourceManager::LoadTexture2D(const std::string& name, const TextureCreationDesc& desc)
 {
-	if (!IFileSystem::GetFileSystem()->Exist(name.c_str()))
+	if (!IFileSystem::Instance()->Exist(name.c_str()))
 		Error("ResourceManager::LoadTexture2D: texture '%s' is not exist.", name.c_str());
 
 	for (TexInter it = m_Textures.begin(); it != m_Textures.end(); it++)
@@ -74,9 +74,9 @@ std::shared_ptr<Material> ResourceManager::LoadMaterial(const std::string& name)
 	}
 
 	char buffer[256];
-	sprintf(buffer, "%s/materials/%s.material", IFileSystem::GetFileSystem()->GetDefaultPath().c_str(), name.c_str());
+	sprintf(buffer, "%s/materials/%s.material", IFileSystem::Instance()->GetDefaultPath().c_str(), name.c_str());
 
-	if (!IFileSystem::GetFileSystem()->Exist(buffer))
+	if (!IFileSystem::Instance()->Exist(buffer))
 		return g_defaultMaterial;
 
 	std::shared_ptr<Material> material = std::make_shared<Material>();
@@ -135,9 +135,9 @@ void ResourceManager::HotReloadMaterials()
 	for (MatInter it = m_Materials.begin(); it != m_Materials.end(); it++)
 	{
 		char buffer[256];
-		sprintf(buffer, "%s/materials/%s.material", IFileSystem::GetFileSystem()->GetDefaultPath().c_str(), it->first.c_str());
+		sprintf(buffer, "%s/materials/%s.material", IFileSystem::Instance()->GetDefaultPath().c_str(), it->first.c_str());
 
-		if (!IFileSystem::GetFileSystem()->Exist(buffer))
+		if (!IFileSystem::Instance()->Exist(buffer))
 			Error("ResourceManager::HotReloadMaterials: unable to reload material because it has been deleted.", it->first.c_str());
 
 		it->second->Load(buffer);
@@ -164,7 +164,7 @@ void ResourceManager::FreeModels()
 	Msg("--- models unfreed data ---");
 	for (MdlInter it = m_Models.begin(); it != m_Models.end(); it++)
 	{
-		Msg("%s", IFileSystem::GetFileSystem()->GetFileName(it->first).c_str());
+		Msg("%s", IFileSystem::Instance()->GetFileName(it->first).c_str());
 		it->second->Destroy();
 		it->second.reset();
 	}

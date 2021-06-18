@@ -64,7 +64,7 @@ void LogInit()
 	char logfilename[256];
 	sprintf(logfilename, "engine.log");
 #endif
-	g_logFile = IFileSystem::GetFileSystem()->OpenWriteStream("logs", logfilename);
+	g_logFile = IFileSystem::Instance()->OpenWriteStream("logs", logfilename);
 
 	Msg("'%s' build %d, %s", "engine", build_id, __DATE__);
 }

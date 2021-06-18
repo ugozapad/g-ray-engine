@@ -42,7 +42,7 @@ void Serializer::Load(const char* filename, World* world, std::string& skyboxnam
 	std::string newfilename = filename;
 	newfilename += ".level";
 
-	std::unique_ptr<DataStream> stream = IFileSystem::GetFileSystem()->OpenReadStream("levels", newfilename);
+	std::unique_ptr<DataStream> stream = IFileSystem::Instance()->OpenReadStream("levels", newfilename);
 	std::string filedata = ReadStreamToString(stream);
 	stream.release();
 

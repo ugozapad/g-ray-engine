@@ -14,7 +14,7 @@
 
 void World::Load(const char* filename)
 {
-	m_levelName = strdup(IFileSystem::GetFileSystem()->GetFileName(filename).c_str());
+	m_levelName = strdup(IFileSystem::Instance()->GetFileName(filename).c_str());
 	Msg("loading level %s", m_levelName);
 
 	// init physics.
@@ -48,7 +48,7 @@ void World::Load(const char* filename)
 
 void World::Save(const char* filename)
 {
-	std::unique_ptr<DataStream> stream = IFileSystem::GetFileSystem()->OpenWriteStream(filename);
+	std::unique_ptr<DataStream> stream = IFileSystem::Instance()->OpenWriteStream(filename);
 
 	Serializer serializer;
 	serializer.BeginSave();
@@ -164,7 +164,7 @@ char asciitolower(char in)
 
 Entity* World::CreateEntity(const char* classname)
 {
-	std::string filename = IFileSystem::GetFileSystem()->GetFileName(m_levelName);
+	std::string filename = IFileSystem::Instance()->GetFileName(m_levelName);
 	std::transform(filename.begin(), filename.end(), filename.begin(),
 		[](unsigned char c) { return std::tolower(c); });
 
