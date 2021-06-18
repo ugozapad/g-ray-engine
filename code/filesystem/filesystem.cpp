@@ -210,9 +210,6 @@ DataStreamPtr FileSystem::OpenReadStream(const std::string& path, const std::str
 	name += "/";
 	name += filename;
 
-	if (!FileSystem::Exist(name.c_str()))
-		Error("FileSystem::OpenReadStream: File '%s' is not exist.", filename.c_str());
-
 	return OpenReadStream(name);
 }
 
