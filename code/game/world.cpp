@@ -122,6 +122,10 @@ void World::Render_Geom()
 	// pass 0 - geometry
 	for (Entity** it = sortedEntites.data(); it != sortedEntites.data() + sortedEntites.size(); ++it)
 		g_deferredRenderer.drawGeometry(camera, *it);
+
+	// pass 1 - lighting
+	
+	
 }
 
 void World::Render_Skybox()

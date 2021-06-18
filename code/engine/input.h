@@ -6,7 +6,7 @@ class Input
 private:
 	static Input ms_Singleton;
 public:
-	static Input& Get();
+	static Input* Instance();
 public:
 	void KeyAction(uint32_t keyid, bool state);
 	void MousePosAction(float x, float y);

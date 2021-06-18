@@ -3,9 +3,9 @@
 
 Input Input::ms_Singleton;
 
-Input& Input::Get()
+Input* Input::Instance()
 {
-	return ms_Singleton;
+	return &ms_Singleton;
 }
 
 void Input::KeyAction(uint32_t keyid, bool state)

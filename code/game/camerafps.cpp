@@ -56,7 +56,7 @@ void CameraFPS::Update(float dt)
 	m_Front = glm::normalize(m_Direction);
 
 	float speed = 5.0f * dt;
-	Input& input = Input::Get();
+	Input& input = *Input::Instance();
 
 	if (input.GetKey(GLFW_KEY_LEFT_SHIFT) ||
 		input.GetKey(GLFW_KEY_RIGHT_SHIFT))

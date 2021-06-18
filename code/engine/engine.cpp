@@ -160,10 +160,10 @@ void Engine::Frame(float dt)
 
 	RenderFrame();
 
-	if (Input::Get().GetKey(GLFW_KEY_F11))
+	if (Input::Instance()->GetKey(GLFW_KEY_F11))
 		g_render->MakeScreenShot();
 
-	if (Input::Get().GetKey(GLFW_KEY_F10))
+	if (Input::Instance()->GetKey(GLFW_KEY_F10))
 	{
 		const char* currentLevelName = strdup(g_pILevel->m_levelName);
 		ShutdownGame();

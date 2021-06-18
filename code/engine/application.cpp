@@ -56,7 +56,7 @@ void Application::Run()
 	{
 		glfwPollEvents();
 
-		if (Input::Get().GetKey(GLFW_KEY_ESCAPE))
+		if (Input::Instance()->GetKey(GLFW_KEY_ESCAPE))
 			break;
 
 		startTime = (float)glfwGetTime();
@@ -72,19 +72,19 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 {
 	ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
 
-	Input::Get().KeyAction(key, action);
+	Input::Instance()->KeyAction(key, action);
 }
 
 static void mouse_key_callback(GLFWwindow* window, int key, int action, int mods)
 {
 	ImGui_ImplGlfw_MouseButtonCallback(window, key, action, mods);
 
-	Input::Get().KeyAction(key, action);
+	Input::Instance()->KeyAction(key, action);
 }
 
 static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	Input::Get().MousePosAction((float)xpos, (float)ypos);
+	Input::Instance()->MousePosAction((float)xpos, (float)ypos);
 }
 
 static void character_callback(GLFWwindow* window, unsigned int codepoint)
