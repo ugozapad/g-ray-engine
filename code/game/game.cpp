@@ -6,6 +6,7 @@
 #include "actor.h"
 #include "weaponrail.h"
 #include "staticobject.h"
+#include "light.h"
 
 #include "engine/luascriptmanager.h"
 
@@ -25,6 +26,7 @@ void Game::Init()
 	GetObjectFactory()->RegisterObject<Actor>("Actor");
 	GetObjectFactory()->RegisterObject<WeaponRail>("WeaponRail");
 	GetObjectFactory()->RegisterObject<StaticObject>("StaticObject");
+	GetObjectFactory()->RegisterObject<Light>("Light");
 }
 
 void Game::Shutdown()

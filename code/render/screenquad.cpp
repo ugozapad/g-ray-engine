@@ -58,3 +58,34 @@ void ScreenQuad::render(ITexture2D* texture, Shader* shader)
 	shader->Bind();
 	g_renderDevice->DrawArray(PM_TRIANGLES, 0, 6);
 }
+
+void ScreenQuad::renderWithoutShaderBinding(ITexture2D* texture)
+{
+	ASSERT(texture);
+
+	g_renderDevice->DepthTest(false);
+
+	g_renderDevice->SetVertexBuffer(ms_vertexBuffer);
+	g_renderDevice->SetTexture2D(0, texture);
+
+	g_renderDevice->DrawArray(PM_TRIANGLES, 0, 6);
+}
+
+void ScreenQuad::renderWithoutTextureBinding(Shader* shader)
+{
+	ASSERT(shader);
+
+	g_renderDevice->DepthTest(false);
+
+	g_renderDevice->SetVertexBuffer(ms_vertexBuffer);
+
+	shader->Bind();
+	g_renderDevice->DrawArray(PM_TRIANGLES, 0, 6);
+}
+
+void ScreenQuad::renderWithoutShaderAndTextureBinding()
+{
+	g_renderDevice->DepthTest(false);
+	g_renderDevice->SetVertexBuffer(ms_vertexBuffer);
+	g_renderDevice->DrawArray(PM_TRIANGLES, 0, 6);
+}

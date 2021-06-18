@@ -8,6 +8,7 @@
 
 #include "engine/application.h"
 #include "engine/engine.h"
+#include "render/screenquad.h"
 
 DeferredRenderer g_deferredRenderer;
 
@@ -57,6 +58,9 @@ void DeferredRenderer::init()
 
 	g_renderDevice->SetFramebuffer(0);
 	//////////////////////////////////////////////////////////////////////////
+
+	// create light pass shader.
+	m_lightPassShader = g_shaderSystem.CreateShader("def_light");
 }
 
 void DeferredRenderer::shutdown()
@@ -74,6 +78,7 @@ ITexture2D* DeferredRenderer::getTexture(int index)
 #include "engine/camera.h"
 #include "engine/entity.h"
 #include "render/render.h"
+#include "game/light.h"
 
 void DeferredRenderer::drawGeometry(Camera* camera, Entity* entity)
 {
@@ -90,4 +95,26 @@ void DeferredRenderer::drawGeometry(Camera* camera, Entity* entity)
 
 	// submit entity to render
 	entity->Render();
+}
+
+void DeferredRenderer::drawLight(Camera* camera, Light* light)
+{
+	ASSERT(camera);
+	ASSERT(light);
+
+	m_lightPassShader->Bind();
+
+	g_renderDevice->SetTexture2D(0, m_textures[RT_POS]);
+	m_lightPassShader->SetInteger("u_positionTexture", 0);
+
+	g_renderDevice->SetTexture2D(1, m_textures[RT_NORMAL]);
+	m_lightPassShader->SetInteger("u_normalTexture", 1);
+
+	g_renderDevice->SetTexture2D(2, m_textures[RT_COLOR]);
+	m_lightPassShader->SetInteger("u_colorTexture", 2);
+
+	m_lightPassShader->SetVec3("u_lightPos", light->m_Position);
+	m_lightPassShader->SetVec3("u_viewPos", camera->m_Position);
+
+	ScreenQuad::renderWithoutTextureBinding(m_lightPassShader);
 }

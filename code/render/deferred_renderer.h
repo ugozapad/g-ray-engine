@@ -7,9 +7,17 @@ class ITexture2D;
 class IVertexBuffer;
 class Camera;
 class Entity;
+class Light;
 
 class DeferredRenderer
 {
+public:
+	enum RT
+	{
+		RT_POS,
+		RT_NORMAL,
+		RT_COLOR
+	};
 public:
 	void init();
 	void shutdown();
@@ -19,6 +27,7 @@ public:
 	ITexture2D* getTexture(int index);
 
 	void drawGeometry(Camera* camera, Entity* entity);
+	void drawLight(Camera* camera, Light* light);
 
 private:
 	ITexture2D* m_textures[3];

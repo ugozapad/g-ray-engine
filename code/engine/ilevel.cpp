@@ -59,6 +59,11 @@ void ILevel::Render_Skybox()
 		return;
 }
 
+void ILevel::Render_Light()
+{
+
+}
+
 void ILevel::Render_Shadows()
 {
 

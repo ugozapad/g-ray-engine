@@ -12,6 +12,7 @@
 #include "../debug_render.h"
 #include "../deferred_renderer.h"
 #include "../framebuffer.h"
+#include "../screenquad.h"
 
 static glRender s_glrender;
 IRender* g_render = static_cast<IRender*>(&s_glrender);

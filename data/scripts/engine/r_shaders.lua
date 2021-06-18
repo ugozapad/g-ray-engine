@@ -37,6 +37,18 @@ r_shaders["quad"] = {
 	}
 }
 
+-- deferred shader (light pass)
+r_shaders["def_light"] = {
+
+	vertex_path = "quad.vsh",
+	fragment_path = "def_light.psh",
+
+	vertex_declaration = {
+		position = { "float", 2 },
+		texcoord0 = { "float", 2 }
+	}
+}
+
 -- only for old shaders or material name's
 r_reassign_table = {
 	

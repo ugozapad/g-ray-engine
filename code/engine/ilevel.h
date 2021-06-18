@@ -24,6 +24,7 @@ public:
 	// Render at single frame.
 	virtual void Render_Geom();
 	virtual void Render_Skybox();
+	virtual void Render_Light();
 	virtual void Render_Shadows();
 
 	Entity** GetEntitiesBegin() { return m_entities.data(); }

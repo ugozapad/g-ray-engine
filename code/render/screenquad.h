@@ -20,6 +20,15 @@ public:
 
 	// same as upper but with custom shader.
 	static void render(ITexture2D* texture, Shader* shader);
+
+	// same as upper but without shader binding.
+	static void renderWithoutShaderBinding(ITexture2D* texture);
+
+	// same as upper but without texture binding.
+	static void renderWithoutTextureBinding(Shader* shader);
+
+	// same as upper but without shader and texture binding. (just render screen quad)
+	static void renderWithoutShaderAndTextureBinding();
 };
 
 

@@ -12,6 +12,8 @@
 #include "phys/physics_manager.h"
 #include "render/deferred_renderer.h"
 
+#include "imgui.h"
+
 void World::Load(const char* filename)
 {
 	m_levelName = strdup(IFileSystem::Instance()->GetFileName(filename).c_str());
@@ -30,7 +32,7 @@ void World::Load(const char* filename)
 
 	if (skyboxname != "none")
 		m_skybox = g_resourceManager->LoadModel(skyboxname);
-	
+
 	// Try to find local player.
 	Actor* actor = dynamic_cast<Actor*>(m_entities[0]);
 	if (!actor)
@@ -69,12 +71,12 @@ void World::Destroy()
 			delete m_entities[i];
 			m_entities[i] = NULL;
 		}
-	}	
-	
+	}
+
 	// release physics world
 	if (m_physicsWorld)
 		g_physicsManager.DeletePhysicsWorld(m_physicsWorld);
-	
+
 	g_physicsManager.Shutdown();
 
 	m_entities.clear();
@@ -89,11 +91,20 @@ void World::Update(float dt)
 	ASSERT(m_physicsWorld);
 	m_physicsWorld->Step(dt);
 
+	int counter = 0;
+
 	for (Entity** it = GetEntitiesBegin(); it != GetEntitiesEnd(); ++it)
 	{
 		Entity* entity = *it;
 		if (entity)
 			entity->Update(dt);
+
+		if (entity)
+		{
+			ImGui::Text("ID=%i Class=%s Name=%s", counter, entity->m_ClassName, entity->m_Name);
+		}
+
+		counter++;
 	}
 }
 
@@ -104,6 +115,8 @@ void World::Update(float dt)
 #include "render/shadowrenderer.h"
 #include "render/device.h"
 #include "render/culling.h"
+
+#include "game/light.h"
 
 void World::Render_Geom()
 {
@@ -122,10 +135,6 @@ void World::Render_Geom()
 	// pass 0 - geometry
 	for (Entity** it = sortedEntites.data(); it != sortedEntites.data() + sortedEntites.size(); ++it)
 		g_deferredRenderer.drawGeometry(camera, *it);
-
-	// pass 1 - lighting
-	
-	
 }
 
 void World::Render_Skybox()
@@ -151,6 +160,21 @@ void World::Render_Skybox()
 		m_skybox->RenderObjects(g_render->GetRenderContext());
 	}
 
+}
+
+void World::Render_Light()
+{
+	Camera* camera = reinterpret_cast<Actor*>(m_currentViewEntity)->m_camera;
+
+	// light's sort
+	std::vector<Light*> sortedLights;
+	for (Entity** it = GetEntitiesBegin(); it != GetEntitiesEnd(); ++it)
+		if (Light* light = dynamic_cast<Light*>(*it))
+			sortedLights.push_back(light);
+
+	// pass 1 - lighting
+	for (Light** it = sortedLights.data(); it != sortedLights.data() + sortedLights.size(); ++it)
+		g_deferredRenderer.drawLight(camera, *it);
 }
 
 void World::Render_Shadows()
