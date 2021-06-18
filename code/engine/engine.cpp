@@ -94,6 +94,17 @@ void Engine::StartGame(const char* levelname)
 	g_pILevel->Load(levelname);
 }
 
+void Engine::ShutdownGame()
+{
+	if (!g_pILevel->IsLoaded())
+	{
+		Msg("Engine::ShutdownGame: Game is not started");
+		return;
+	}
+
+	g_pILevel->Destroy();
+}
+
 #include "application.h"
 #include "resourcemanager.h"
 #include "render/device.h"
@@ -151,4 +162,13 @@ void Engine::Frame(float dt)
 
 	if (Input::Get().GetKey(GLFW_KEY_F11))
 		g_render->MakeScreenShot();
+
+	if (Input::Get().GetKey(GLFW_KEY_F10))
+	{
+		const char* currentLevelName = strdup(g_pILevel->m_levelName);
+		ShutdownGame();
+		Sleep(100);
+		StartGame(currentLevelName);
+		Sleep(100);
+	}
 }

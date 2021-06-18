@@ -78,6 +78,7 @@ void World::Destroy()
 	g_physicsManager.Shutdown();
 
 	m_entities.clear();
+	m_isLoaded = false;
 }
 
 void World::Update(float dt)

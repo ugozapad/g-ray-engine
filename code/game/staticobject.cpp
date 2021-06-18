@@ -30,7 +30,6 @@ void StaticObject::Render()
 void StaticObject::LoadVisual(const std::string& name)
 {
 	m_Model = g_resourceManager->LoadModel(name);
-	m_Rotation.x = -90.0f;
 }
 
 void StaticObject::Load(Serializer* serializer)

@@ -12,6 +12,7 @@ public:
 	void Frame(float dt);
 
 	void StartGame(const char* levelname);
+	void ShutdownGame();
 
 	void RenderFrame();
 

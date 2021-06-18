@@ -35,13 +35,16 @@ public:
 
 public:
 	Entity* m_currentViewEntity;
+	const char* m_levelName;
 
 private:
 	std::vector<Entity*> m_entities;
 	std::shared_ptr<ModelBase> m_skybox;
 	PhysicsWorld* m_physicsWorld;
-	const char* m_levelName;
+
+protected:
 	bool m_isLoaded = false;
+
 };
 
 extern ILevel* g_pILevel;

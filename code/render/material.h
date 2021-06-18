@@ -7,6 +7,9 @@
 class Material
 {
 public:
+	static void CreateMaterialFromImport(const char* name, const char* diffuseName);
+
+public:
 	Material();
 	~Material();
 

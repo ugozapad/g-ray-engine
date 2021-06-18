@@ -51,6 +51,40 @@ public:
 	char* m_token;
 };
 
+void Material::CreateMaterialFromImport(const char* name, const char* diffuseName)
+{
+	std::string materiaName;
+	materiaName += name;
+	materiaName += ".material";
+
+	DataStreamPtr stream = IFileSystem::Instance()->OpenWriteStream("materials", materiaName.c_str());
+
+	char buffer[256];
+	int len = sprintf(buffer, "material \"%s\"\n", name);
+	stream->Write(buffer, len);
+
+	len = sprintf(buffer, "{\n");
+	stream->Write(buffer, len);
+
+	len = sprintf(buffer, "\ttechnique diffuse\n");
+	stream->Write(buffer, len);
+
+	const char* newAlbedoName;
+
+	if (diffuseName && diffuseName[0] == '\0')
+		newAlbedoName = "notexture.png";
+	else
+		newAlbedoName = diffuseName;
+
+	len = sprintf(buffer, "\talbedo \"%s\"\n", newAlbedoName);
+	stream->Write(buffer, len);
+
+	len = sprintf(buffer, "}\n");
+	stream->Write(buffer, len);
+
+	stream.reset();
+}
+
 Material::Material()
 {
 	m_depthWrite = true;
@@ -100,7 +134,7 @@ void Material::Load(const std::string& filename)
 		{
 			char* albedoName = 0;
 			char* nextTextureTok = strtok(NULL, tokenizerStr);
-			if (strcmp(nextTextureTok, "skipmips") == 0)
+			if (nextTextureTok && strcmp(nextTextureTok, "skipmips") == 0)
 			{
 				disableMipMapping = true;
 				albedoName = strtok(NULL, tokenizerStr);

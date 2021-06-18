@@ -45,6 +45,18 @@ SubMesh* ProccessSubMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 	}
 
 	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+	char buffer[256];
+	sprintf(buffer, "%s/materials/%s.material", IFileSystem::Instance()->GetDefaultPath().c_str(), material->GetName().C_Str());
+
+	if (!IFileSystem::Instance()->Exist(buffer))
+	{
+		aiString texturePath;
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
+
+		Material::CreateMaterialFromImport(material->GetName().C_Str(), texturePath.C_Str());
+	}
+
 	aiMatrix4x4 nodePosition = node->mTransformation;
 	//glm::mat4 transform = glm::make_mat4(&nodePosition[0][0]);
 	glm::mat4 transform = glm::mat4(1.0f);
@@ -126,6 +138,7 @@ void SubMesh::Load(std::vector<Vertex>& vertices, std::vector<uint32_t>& indecie
 	m_indexBuffer = g_renderDevice->CreateIndexBuffer(indecies.data(), indecies.size() * sizeof(uint32_t), BufferAccess::Static);
 	m_verticesCount = vertices.size();
 	m_indeciesCount = indecies.size();
+
 	m_material = g_resourceManager->LoadMaterial(materialname);
 }
 

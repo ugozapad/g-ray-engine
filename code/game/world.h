@@ -41,8 +41,6 @@ private:
 	std::vector<Entity*> m_entities;
 	std::shared_ptr<ModelBase> m_skybox;
 	PhysicsWorld* m_physicsWorld;
-	const char* m_levelName;
-	bool m_isLoaded = false;
 };
 
 #endif // !WORLD_H

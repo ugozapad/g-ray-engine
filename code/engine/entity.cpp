@@ -69,8 +69,8 @@ void Entity::Save(Serializer* serializer)
 
 glm::mat4 Entity::GetTranslation()
 {
-	glm::vec3 radiansRotaton = glm::vec3(glm::radians(m_Rotation.x), glm::radians(m_Rotation.y), glm::radians(m_Rotation.z));
-	glm::mat4 rotation = glm::toMat4(glm::quat(radiansRotaton));
+	glm::vec3 radiansRotation = glm::vec3(glm::radians(m_Rotation.x), glm::radians(m_Rotation.y), glm::radians(m_Rotation.z));
+	glm::mat4 rotation = glm::toMat4(glm::quat(radiansRotation));
 	glm::mat4 tranlation = glm::mat4(1.0f);
 
 	if (GetParent())
