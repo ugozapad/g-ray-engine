@@ -1,0 +1,6 @@
+material "test"
+{
+	albedo "test.bmp"
+	normal_map "test_nmap.png"
+	technique diffuse
+}

@@ -1,0 +1,7 @@
+material "sky_nx"
+{
+	technique skybox
+	albedo { skipmipms "skybox/sky_nx.png" }
+	depth_write false
+	selfillum true
+}

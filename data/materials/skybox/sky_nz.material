@@ -1,0 +1,7 @@
+material "sky_nz"
+{
+	technique skybox
+	albedo { skipmips "skybox/sky_nz.png" }
+	depth_write false
+	selfillum true
+}

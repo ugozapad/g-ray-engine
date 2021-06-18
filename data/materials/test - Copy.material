@@ -1,0 +1,5 @@
+material "test"
+{
+	albedo "test.bmp"
+	technique diffuse
+}

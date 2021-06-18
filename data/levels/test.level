@@ -1,0 +1,14 @@
+WorldVersion: 1
+SkyboxModel: none
+Entities:
+  - Entity: test_actor_0
+    ClassName: Actor
+    Position: [0, 0, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  - Entity: test_staticobject_0
+    ClassName: StaticObject
+    Position: [-2, 0, -1]
+    Rotation: [-90, 0, 0]
+    Scale: [1, 1, 1]
+    VisualName: data/models/test1.dae

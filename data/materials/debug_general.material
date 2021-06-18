@@ -1,0 +1,5 @@
+material "default"
+{
+	albedo "notexture.png"
+	technique "diffuse"
+}

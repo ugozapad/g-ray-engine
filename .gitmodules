@@ -1,0 +1,15 @@
+[submodule "externals/glm"]
+	path = externals/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "externals/glfw"]
+	path = externals/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "externals/yaml-cpp"]
+	path = externals/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "externals/imgui"]
+	path = externals/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "externals/stb"]
+	path = externals/stb
+	url = https://github.com/nothings/stb.git
