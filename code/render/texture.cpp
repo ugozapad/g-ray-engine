@@ -85,7 +85,7 @@ void Texture2D::CreateTexture(const std::string& filename, const TextureCreation
 	if (width % 2 != 0 || height % 2 != 0)
 	{
 		Msg("texture %s has non power of two size %ix%i", filename.c_str(), width, height);
-		Msg("using EXT_texture_rectangle");
+		//Msg("using EXT_texture_rectangle");
 
 		texdesc.m_isNPOT = true;
 	}
