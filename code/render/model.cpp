@@ -124,7 +124,7 @@ void SubMesh::Load(std::vector<Vertex>& vertices, std::vector<uint32_t>& indecie
 	m_transform = position;
 	m_vertexBuffer = g_renderDevice->CreateVertexBuffer(vertices.data(), vertices.size() * sizeof(Vertex), BufferAccess::Static);
 	m_indexBuffer = g_renderDevice->CreateIndexBuffer(indecies.data(), indecies.size() * sizeof(uint32_t), BufferAccess::Static);
-	m_verticesCount = vertices.size() / 3 / 2;
+	m_verticesCount = vertices.size();
 	m_indeciesCount = indecies.size();
 	m_material = g_resourceManager->LoadMaterial(materialname);
 }
