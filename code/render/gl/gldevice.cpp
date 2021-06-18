@@ -108,7 +108,7 @@ void glRenderDevice::SetFramebuffer(IFramebuffer* buffer)
 void glRenderDevice::DrawArray(PrimMode primMode, size_t startof, size_t count)
 {
 	g_renderStats.m_drawCalls++;
-	//g_renderStats.m_verticesCount += startof - count;
+	g_renderStats.m_verticesCount += count;
 
 	glDrawArrays(GL_TRIANGLES, startof, count);
 }

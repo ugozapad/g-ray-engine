@@ -152,6 +152,9 @@ void SubMesh::Render(const RenderContext& ctx)
 
 //	g_render->RenderSubMesh(ctx, this, m_material->GetShader().get(), m_material.get());
 
-	g_render->RenderMesh(ctx, m_vertexBuffer, m_indexBuffer, m_indeciesCount, m_material->GetShader().get(),
+	//g_render->RenderMesh(ctx, m_vertexBuffer, m_indexBuffer, m_indeciesCount, m_material->GetShader().get(),
+	//	m_material.get());
+
+	g_render->RenderMesh(ctx, m_vertexBuffer, m_verticesCount, m_material->GetShader().get(),
 		m_material.get());
 }
