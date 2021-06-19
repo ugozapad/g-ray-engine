@@ -36,7 +36,7 @@ void DeferredRenderer::init()
 	specularDesc.m_width = width;
 	specularDesc.m_height = height;
 	specularDesc.m_format = ImageFormat::FMT_RGBA;
-	m_textures[2] = g_renderDevice->CreateTexture2D(specularDesc);
+	m_textures[RT_COLOR] = g_renderDevice->CreateTexture2D(specularDesc);
 
 	// create framebuffer
 	m_framebuffer = g_renderDevice->CreateFramebuffer();
