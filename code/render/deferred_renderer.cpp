@@ -42,9 +42,9 @@ void DeferredRenderer::init()
 	m_framebuffer = g_renderDevice->CreateFramebuffer();
 
 	// attach our texture's
-	m_framebuffer->setColorTexture(0, m_textures[0]);
-	m_framebuffer->setColorTexture(1, m_textures[1]);
-	m_framebuffer->setColorTexture(2, m_textures[2]);
+	m_framebuffer->setColorTexture(0, m_textures[RT_POS]);
+	m_framebuffer->setColorTexture(1, m_textures[RT_NORMAL]);
+	m_framebuffer->setColorTexture(2, m_textures[RT_COLOR]);
 
 	//////////////////////////////////////////////////////////////////////////
 	// ugly piece of shit
