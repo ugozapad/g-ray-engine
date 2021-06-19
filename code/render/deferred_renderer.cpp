@@ -17,21 +17,21 @@ void DeferredRenderer::init()
 	int width, height;
 	glfwGetWindowSize(g_engine.m_app->GetWindow(), &width, &height);
 
-	// create color texture
+	// create position texture
 	TextureCreationDesc colorDesc = {0};
 	colorDesc.m_width = width;
 	colorDesc.m_height = height;
 	colorDesc.m_format = ImageFormat::FMT_RGBA;
-	m_textures[0] = g_renderDevice->CreateTexture2D(colorDesc);
+	m_textures[RT_POS] = g_renderDevice->CreateTexture2D(colorDesc);
 
 	// create normal texture
 	TextureCreationDesc normalDesc = {0};
 	colorDesc.m_width = width;
 	colorDesc.m_height = height;
 	colorDesc.m_format = ImageFormat::FMT_RGBA;
-	m_textures[1] = g_renderDevice->CreateTexture2D(colorDesc);
+	m_textures[RT_NORMAL] = g_renderDevice->CreateTexture2D(colorDesc);
 
-	// create specular texture
+	// create color texture
 	TextureCreationDesc specularDesc = { 0 };
 	specularDesc.m_width = width;
 	specularDesc.m_height = height;
