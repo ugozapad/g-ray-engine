@@ -136,8 +136,6 @@ void Engine::RenderFrame()
 	g_renderDevice->SetFramebuffer(0);
 	g_renderDevice->Clear(IRenderDevice::CLEAR_RT | IRenderDevice::CLEAR_DEPTH);
 
-	//ScreenQuad::render(g_deferredRenderer.getTexture(DeferredRenderer::RT_NORMAL));
-
 	// pass 2 - lighting
 	g_pILevel->Render_Light();
 
