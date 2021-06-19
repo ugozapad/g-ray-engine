@@ -125,6 +125,7 @@ void World::Render_Geom()
 
 	// get camera
 	Camera* camera = reinterpret_cast<Actor*>(m_currentViewEntity)->m_camera;
+
 	std::vector<Entity*> sortedEntites;
 
 	// sort
@@ -159,7 +160,10 @@ void World::Render_Skybox()
 
 		m_skybox->RenderObjects(g_render->GetRenderContext());
 	}
-
+	else
+	{
+		g_renderDevice->ClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	}
 }
 
 void World::Render_Light()
