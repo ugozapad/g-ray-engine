@@ -83,6 +83,11 @@ void World::Destroy()
 	m_isLoaded = false;
 }
 
+#include "engine/input.h"
+#include "engine/camera.h"
+
+#include "game/light.h"
+
 void World::Update(float dt)
 {
 	if (!m_isLoaded)
@@ -106,17 +111,28 @@ void World::Update(float dt)
 
 		counter++;
 	}
+
+	static float time = glfwGetTime();
+
+	if (Input::Instance()->GetKey(GLFW_KEY_F1) && glfwGetTime() - time > 0.5)
+	{
+		time = glfwGetTime();
+
+		Camera* cam = reinterpret_cast<Actor*>(m_currentViewEntity)->m_camera;
+
+		Light* light = (Light*)CreateEntity("Light");
+		light->m_Position = cam->m_Position;
+	}
 }
 
 #include "engine/engine.h"
 #include "engine/application.h"
-#include "engine/camera.h"
+
 #include "render/render.h"
 #include "render/shadowrenderer.h"
 #include "render/device.h"
 #include "render/culling.h"
 
-#include "game/light.h"
 
 void World::Render_Geom()
 {
@@ -177,8 +193,10 @@ void World::Render_Light()
 			sortedLights.push_back(light);
 
 	// pass 1 - lighting
-	for (Light** it = sortedLights.data(); it != sortedLights.data() + sortedLights.size(); ++it)
-		g_deferredRenderer.drawLight(camera, *it);
+	if (!sortedLights.empty())
+		g_deferredRenderer.drawLight(camera, sortedLights.data(), sortedLights.size());
+	else
+		g_deferredRenderer.drawNoLight(camera);
 }
 
 void World::Render_Shadows()
@@ -206,7 +224,14 @@ Entity* World::CreateEntity(const char* classname)
 		[](unsigned char c) { return std::tolower(c); });
 
 	char buffer[256];
-	sprintf(buffer, "%s_%s_%i", filename.c_str(), classnamestr.c_str(), 0);
+
+	for (int i = 0; i < 99999; i++)
+	{
+		sprintf(buffer, "%s_%s_%i", filename.c_str(), classnamestr.c_str(), i);
+
+		if (!EntityExist(buffer))
+			break;
+	}
 
 	Entity* entity = GetObjectFactory()->CreateObject(classname);
 	entity->m_Name = strdup(buffer);
@@ -214,4 +239,13 @@ Entity* World::CreateEntity(const char* classname)
 	m_entities.push_back(entity);
 
 	return entity;
+}
+
+bool World::EntityExist(const char* entityname)
+{
+	for (Entity** it = GetEntitiesBegin(); it != GetEntitiesEnd(); ++it)
+		if (strcmp((*it)->m_Name, entityname) == 0)
+			return true;
+
+	return false;
 }

@@ -7,7 +7,7 @@
 class Material
 {
 public:
-	static void CreateMaterialFromImport(const char* name, const char* diffuseName);
+	static void CreateMaterialFromImport(const char* name, const char* diffuseName, const char* normalName);
 
 public:
 	Material();

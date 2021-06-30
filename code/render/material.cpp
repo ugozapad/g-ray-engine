@@ -51,7 +51,7 @@ public:
 	char* m_token;
 };
 
-void Material::CreateMaterialFromImport(const char* name, const char* diffuseName)
+void Material::CreateMaterialFromImport(const char* name, const char* diffuseName, const char* normalName)
 {
 	std::string materiaName;
 	materiaName += name;
@@ -78,6 +78,12 @@ void Material::CreateMaterialFromImport(const char* name, const char* diffuseNam
 
 	len = sprintf(buffer, "\talbedo \"%s\"\n", newAlbedoName);
 	stream->Write(buffer, len);
+
+	if (normalName && normalName[0] != '\0')
+	{
+		len = sprintf(buffer, "\tnormal_map \"%s\"\n", normalName);
+		stream->Write(buffer, len);
+	}
 
 	len = sprintf(buffer, "}\n");
 	stream->Write(buffer, len);
@@ -237,7 +243,7 @@ void Material::Bind()
 	{
 		g_renderDevice->SetTexture2D(1, m_normalTexture->GetHWTexture());
 		m_shader->SetInteger("u_normalTexture", 1);
-		m_shader->SetInteger("u_usingNormalMapping", 1);
+		m_shader->SetInteger("u_usingNormalMapping", 0);
 	}
 
 	// Set up detail texture as 5

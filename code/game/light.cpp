@@ -17,7 +17,7 @@ void Light::Update(float dt)
 {
 	inherited::Update(dt);
 
-	ImGui::SliderFloat3("POS", glm::value_ptr(m_Position), -100.0f, 100.0f);
+	//ImGui::SliderFloat3("POS", glm::value_ptr(m_Position), -100.0f, 100.0f);
 }
 
 // !!! STUB FUNCTION !!!

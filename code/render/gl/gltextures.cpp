@@ -11,14 +11,14 @@ GLenum GetGLFormat(ImageFormat format)
 	case ImageFormat::FMT_DEPTH24_STENCIL8: return GL_DEPTH24_STENCIL8;
 	case ImageFormat::FMT_DEPTH32_STENCIL_8_F: return GL_DEPTH32F_STENCIL8;
 
-	// [02/05/2021]
-	case ImageFormat::FMT_RGB32F: return GL_RGB;
-	case ImageFormat::FMT_RGBA32F: return GL_RGBA;
-	// [02/05/2021]
+	case ImageFormat::FMT_RGB32F: return GL_RGB32F;
+	case ImageFormat::FMT_RGBA32F: return GL_RGBA32F;
+	case ImageFormat::FMT_RGB16F: return GL_RGB16F;
+	case ImageFormat::FMT_RGBA16F: return GL_RGBA16F;
 
-	// [05/05/2021]
 	case ImageFormat::FMT_SRGB: return GL_SRGB;
-	// [05/05/2021]
+
+
 	}
 
 	return 0;
@@ -32,19 +32,35 @@ GLenum GetGLInternalFormat(ImageFormat format)
 	case ImageFormat::FMT_RGBA: return GL_RGBA;
 	case ImageFormat::FMT_DEPTH24_STENCIL8: return GL_DEPTH24_STENCIL8;
 	case ImageFormat::FMT_DEPTH32_STENCIL_8_F: return GL_DEPTH32F_STENCIL8;
-
-	// [02/05/2021]
-	case ImageFormat::FMT_RGB32F: return GL_RGB32F;
-	case ImageFormat::FMT_RGBA32F: return GL_RGBA32F;
-	// [02/05/2021]
-
-	// [05/05/2021]
+	case ImageFormat::FMT_RGB32F: return GL_RGB;
+	case ImageFormat::FMT_RGBA32F: return GL_RGBA;
+	case ImageFormat::FMT_RGB16F: return GL_RGB;
+	case ImageFormat::FMT_RGBA16F: return GL_RGBA;
 	case ImageFormat::FMT_SRGB: return GL_RGB;
-	// [05/05/2021]
 	}
 
 	return 0;
 }
+
+GLenum GetGLTextureDataType(ImageFormat format)
+{
+	switch (format)
+	{
+	case ImageFormat::FMT_RGB:
+	case ImageFormat::FMT_RGBA: 
+		return GL_UNSIGNED_BYTE;
+
+	case ImageFormat::FMT_RGB16F:
+	case ImageFormat::FMT_RGBA16F:
+	case ImageFormat::FMT_RGB32F:
+	case ImageFormat::FMT_RGBA32F: 
+		return GL_FLOAT;
+
+	}
+
+	return 0;
+}
+
 
 glTexture2D::glTexture2D(const TextureCreationDesc& desc) :
 	m_desc(desc),
@@ -60,7 +76,8 @@ glTexture2D::glTexture2D(const TextureCreationDesc& desc) :
 				 m_desc.m_width, m_desc.m_height, 
 				 0, 
 				 GetGLInternalFormat(m_desc.m_format), 
-				 GL_UNSIGNED_BYTE, 
+			   //GL_UNSIGNED_BYTE, 
+				 GetGLTextureDataType(m_desc.m_format),
 				 m_desc.m_data);
 
 	if (m_desc.m_mipmapping)

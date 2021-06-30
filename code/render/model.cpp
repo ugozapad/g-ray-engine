@@ -33,16 +33,23 @@ SubMesh* ProccessSubMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 		else
 			vertex.m_texCoord = glm::vec2(0.0f, 0.0f);
 
+		if (mesh->mTangents)
+			vertex.m_tangent = glm::vec3(mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z);
+
+		if (mesh->mBitangents)
+			vertex.m_bitangent = glm::vec3(mesh->mBitangents[i].x, mesh->mBitangents[i].y, mesh->mBitangents[i].z);
+
 		vertices.push_back(vertex);
 	}
 
-	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+	for (uint32_t i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
 
-		for (unsigned int j = 0; j < face.mNumIndices; j++)
+		for (uint32_t j = 0; j < face.mNumIndices; j++)
 			indecies.push_back(face.mIndices[j]);
 	}
+
 
 	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
@@ -51,10 +58,13 @@ SubMesh* ProccessSubMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 
 	if (!IFileSystem::Instance()->Exist(buffer))
 	{
-		aiString texturePath;
-		material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
+		aiString diffusePath;
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &diffusePath);
 
-		Material::CreateMaterialFromImport(material->GetName().C_Str(), texturePath.C_Str());
+		aiString normalPath;
+		material->GetTexture(aiTextureType_NORMALS, 0, &normalPath);
+
+		Material::CreateMaterialFromImport(material->GetName().C_Str(), diffusePath.C_Str(), normalPath.C_Str());
 	}
 
 	aiMatrix4x4 nodePosition = node->mTransformation;
@@ -91,7 +101,7 @@ void ModelBase::Load(const std::string& filename)
 	Msg("loading %s", IFileSystem::Instance()->GetFileName(filename).c_str());
 
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		Error("Failed to load model. %s", importer.GetErrorString());

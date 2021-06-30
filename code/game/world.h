@@ -35,6 +35,8 @@ public:
 
 	Entity* CreateEntity(const char* classname);
 
+	bool EntityExist(const char* entityname);
+
 public:
 	Entity* m_currentViewEntity;
 

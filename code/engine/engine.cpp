@@ -168,8 +168,6 @@ void Engine::Frame(float dt)
 	{
 		const char* currentLevelName = strdup(g_pILevel->m_levelName);
 		ShutdownGame();
-		Sleep(100);
 		StartGame(currentLevelName);
-		Sleep(100);
 	}
 }

@@ -27,7 +27,8 @@ public:
 	ITexture2D* getTexture(int index);
 
 	void drawGeometry(Camera* camera, Entity* entity);
-	void drawLight(Camera* camera, Light* light);
+	void drawLight(Camera* camera, Light** lights, size_t size);
+	void drawNoLight(Camera* camera);
 
 private:
 	ITexture2D* m_textures[3];

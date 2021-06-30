@@ -60,7 +60,7 @@
 
 Texture2D::Texture2D(const std::string& filename)
 {
-	TextureCreationDesc desc = {0};
+	TextureCreationDesc desc = { 0 };
 	desc.m_mipmapping = true;
 
 	CreateTexture(filename, desc);
@@ -84,7 +84,7 @@ void Texture2D::CreateTexture(const std::string& filename, const TextureCreation
 
 	if (width % 2 != 0 || height % 2 != 0)
 	{
-		Msg("texture %s has non power of two size %ix%i", filename.c_str(), width, height);
+		Msg("image has non power of two size %ix%i %s ", width, height, filename.c_str());
 		//Msg("using EXT_texture_rectangle");
 
 		texdesc.m_isNPOT = true;

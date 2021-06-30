@@ -20,6 +20,9 @@ enum class ImageFormat
 
 	FMT_RGB32F,
 	FMT_RGBA32F,
+
+	FMT_RGB16F,
+	FMT_RGBA16F,
 };
 
 struct RenderContext

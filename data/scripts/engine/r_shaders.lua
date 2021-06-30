@@ -9,7 +9,9 @@ r_shaders["def_geom"] = {
 	vertex_declaration = {
 		position = { "float", 3 },
 		normal = { "float", 3 },
-		texcoord0 = { "float", 2 }
+		texcoord0 = { "float", 2 },
+		tangent = { "float", 3 },
+		bitangent = { "float", 3 }
 	}
 	
 }

@@ -27,9 +27,22 @@ public:
 static EngineWrapper s_engineWrapper;
 LuaScriptManager g_luaScriptManager;
 
+int LuaAtPanicCallback(lua_State* L)
+{
+	std::string errorMsg;
+	errorMsg += "--- Lua Error ---\n";
+	errorMsg += "Error: ";
+	errorMsg += lua_tostring(L, -1);
+	errorMsg += "\n---------------";
+
+	Error(&errorMsg[0]);
+	return 0;
+}
+
 void LuaScriptManager::Init()
 {
 	m_luaState = LuaState::Create();
+	m_luaState->AtPanic(LuaAtPanicCallback);
 
 	LuaObject globalObjects = m_luaState->GetGlobals();
 

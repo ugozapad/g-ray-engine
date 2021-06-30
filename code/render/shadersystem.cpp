@@ -73,6 +73,36 @@ void ShaderSystem::Init()
 					decl.size = declTable[2].GetInteger();
 					info.vertexDecl.push_back(decl);
 				}
+
+				if (!it2.GetValue()["tangent"].IsNil())
+				{
+					LuaObject declTable = it2.GetValue()["tangent"];
+					ASSERT(declTable.IsValid());
+
+					VertexDeclaration decl;
+					decl.name = "tangent";
+
+					if (strcmp(declTable[1].GetString(), "float"))
+						decl.type = VertexDeclaration::VD_FLOAT;
+
+					decl.size = declTable[2].GetInteger();
+						info.vertexDecl.push_back(decl);
+				}
+
+				if (!it2.GetValue()["bitangent"].IsNil())
+				{
+					LuaObject declTable = it2.GetValue()["bitangent"];
+					ASSERT(declTable.IsValid());
+
+					VertexDeclaration decl;
+					decl.name = "bitangent";
+
+					if (strcmp(declTable[1].GetString(), "float"))
+						decl.type = VertexDeclaration::VD_FLOAT;
+
+					decl.size = declTable[2].GetInteger();
+					info.vertexDecl.push_back(decl);
+				}
 			}
 		}
 
