@@ -1,5 +1,5 @@
 # engine
-3-D Game engine inspired by X-Ray, Urho3D and Source.
+3D Game engine inspired by X-Ray, Urho3D and Source.
 
 ## Features
 * OpenGL 3.3 Core profile renderer
